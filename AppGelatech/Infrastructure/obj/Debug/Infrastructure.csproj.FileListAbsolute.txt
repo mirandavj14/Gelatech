@@ -1,0 +1,12 @@
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.dll.config
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.dll
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.pdb
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.CopyComplete
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.dll
+C:\Users\miran\Desktop\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.pdb

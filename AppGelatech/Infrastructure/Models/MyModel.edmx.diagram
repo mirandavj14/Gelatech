@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6fe5cb12821e48b5b021341970383135" Name="Diagram1">
+        <EntityTypeShape EntityType="GelatechDBModel.Invoice" Width="1.5" PointX="7.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GelatechDBModel.Product" Width="1.5" PointX="7.875" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="GelatechDBModel.ProductInvoice" Width="1.5" PointX="9.875" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GelatechDBModel.Role" Width="1.5" PointX="9.875" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GelatechDBModel.User" Width="1.5" PointX="11.875" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="GelatechDBModel.FK__ProductIn__Invoi__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="GelatechDBModel.FK__ProductIn__Produ__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="GelatechDBModel.FK__User__RoleId__267ABA7A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
