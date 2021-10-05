@@ -1,5 +1,5 @@
-﻿using Infrastructure.Models;
-using Infrastructure.Repository;
+﻿using Core.Services;
+using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +19,13 @@ namespace Gelatech.Controllers
         {
             try
             {
-                UserRepository userRepository = new UserRepository();
-                User user = userRepository.GetUser(pUser);
+                User user = null;
+                IServicesUser servicesUsers = new ServiceUsers();
+                user = servicesUsers.GetUser(pUser);
                 if (user != null)
                 {
                     Session["User"] = user;
-                    return RedirectToAction("Index", "Order");
+                    return RedirectToAction("Index", "Home");
                 }
                 TempData["Login"] = "Incorrect user data!";
                 return View("Index");

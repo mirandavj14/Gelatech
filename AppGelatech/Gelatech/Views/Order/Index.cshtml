@@ -1,8 +1,68 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Infrastructure.Models.Product> product = new List<Infrastructure.Models.Product>();
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
 
 <h2>CREAR ORDEN</h2>
 
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <br>
+        <div class="row">
+            <h5 class="mt-5 mb-3">Columns</h5>
+            <div class="row col-md-12">
+                @foreach (var item in product)
+                {
+                    <div class="card col-md-4" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                       
+                        <div class="card-body"
+                             style="background-color: #d8d8d8; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                            <h4 class="card-title font-size-18 mt-0">@item.Name</h4>
+                            <h4 class="card-text">@item.Price</h4>
+                            <div style="text-align: right;">
+                                <a onclick="valida(@item.Id)" class="btn btn-dark"><i style="margin-right: 10px;" class="fas fa-plus"></i> Add</a>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- end page-content-wrapper -->
+<div class="widget-content">
+    <div class="table-responsive">
+        <table id="TablaArticulos" class="table table-striped">
+            <thead>
+                <tr class="text-black">
+                    <th><div class="th-content">Name</div></th>
+                    <th><div class="th-content">Price</div></th>
+                    <th><div class="th-content">Quantity</div></th>
+                    <th><div class="th-content">Delete</div></th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @{
+        var modelData = 0;
+
+    }
+
+
+}

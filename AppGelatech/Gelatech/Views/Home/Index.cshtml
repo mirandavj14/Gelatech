@@ -1,4 +1,48 @@
 ﻿@{
-    ViewBag.Title = "Gelatech Home";
+    Layout = Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    List<Infrastructure.Models.Product> product = new List<Infrastructure.Models.Product>();
+    product = ViewBag.Product;
 }
+<div class="page-content">
 
+    <!-- Page-Title -->
+    <div class="page-title-box">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h4 class="page-title mb-1">GELATECH</h4>
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item active">We have quality products for our clients</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <h5 class="mt-5 mb-3">Columns</h5>
+                <div class="row col-md-12">
+                    @foreach (var item in product)
+                    {
+                        <div class="card col-md-4" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                           
+                            <div class="card-body"
+                                 style="background-color: red; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                                <h4 class="card-title font-size-18 mt-0">@item.Name</h4>
+                                <h4 class="card-text">@item.Description</h4>
+                                <h4 class="card-text">@item.Price</h4>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- end row -->
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- end page-content-wrapper -->
+</div>
+<!-- End Page-content -->

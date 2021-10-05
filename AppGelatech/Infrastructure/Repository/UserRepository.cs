@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public User GetUser(User pUser)
         {
