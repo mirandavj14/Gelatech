@@ -25,7 +25,7 @@ namespace Gelatech.Controllers
                 if (user != null)
                 {
                     Session["User"] = user;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Order");
                 }
                 TempData["Login"] = "Incorrect user data!";
                 return View("Index");

@@ -13,3 +13,18 @@ C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Core\bin\Debug\EntityFram
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Core\obj\Debug\Core.csproj.CopyComplete
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Core\obj\Debug\Core.dll
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Core\obj\Debug\Core.pdb
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Core.dll.config
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Core.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Core.pdb
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\EntityFramework.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Infrastructure.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Infrastructure.pdb
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\Infrastructure.dll.config
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\EntityFramework.xml
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\obj\Debug\Core.csproj.AssemblyReference.cache
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\obj\Debug\Core.csproj.CopyComplete
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\obj\Debug\Core.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Core\obj\Debug\Core.pdb

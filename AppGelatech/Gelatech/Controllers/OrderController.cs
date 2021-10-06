@@ -12,15 +12,96 @@ namespace Gelatech.Controllers
     {
         public ActionResult Index()
         {
+            var productInvoicesInSession = Session["ProductInvoices"];
+            var invoice = Session["Invoice"];
+            var x = productInvoicesInSession == null ? ViewBag.productInvoices = new List<ProductInvoice>() : ViewBag.productInvoices = (List<ProductInvoice>)Session["ProductInvoices"];
+            var y = invoice == null ? ViewBag.invoice = new Invoice() : ViewBag.invoice = (Invoice)Session["Invoice"];
+            IServicesProduct servicesProduct = new ServiceProduct();
+            ViewBag.products = servicesProduct.GetProductAll();
             return View();
         }
+
+        public ActionResult AddProduct(ProductInvoice productInvoice)
+        {
+            // Get the full product object using the id in productInvoice
+            IServicesProduct servicesProduct = new ServiceProduct();
+            Product fullProduct = servicesProduct.GetProductByID(productInvoice.ProductId);
+            productInvoice.Product = fullProduct;
+
+            // Declare new list of ProductInvoice
+            List<ProductInvoice> productInvoices = new List<ProductInvoice>();
+
+            // Get Product Invoices saved in the session
+            var productInvoicesInSession = Session["ProductInvoices"];
+
+            // If there is already Product Invoices saved in the session
+            if (productInvoicesInSession != null)
+            {
+                // Get Product Invoices saved in the session
+                productInvoices = (List<ProductInvoice>)Session["ProductInvoices"];
+
+                // Check if the product productInvoice is already in the list
+                ProductInvoice invoiceProductAlreadyAdded = productInvoices.FirstOrDefault(p => p.ProductId.Equals(productInvoice.ProductId));
+
+                // If the invoice Product is Already Added
+                if (invoiceProductAlreadyAdded != null)
+                {
+                    // update the quantity adn update the object
+                    invoiceProductAlreadyAdded.Quantity += productInvoice.Quantity;
+                    productInvoices.Remove(invoiceProductAlreadyAdded);
+                    productInvoices.Add(invoiceProductAlreadyAdded);
+                }
+
+                // If the invoice Product is NOT Already Added
+                else
+                {
+                    // add the invoice Product to the list
+                    productInvoices.Add(productInvoice);
+                }
+            }
+
+            // If there is NOT already Product Invoices saved in the session
+            else
+            {
+                // add the invoice Product to the list
+                productInvoices.Add(productInvoice);
+            }
+
+            // calculate Invoice values and save to session
+            Invoice invoice = new Invoice();
+            invoice.SubTotal = CalculateSubtotal(productInvoices);
+            invoice.Taxes = CalculateTaxes((decimal)invoice.SubTotal);
+            invoice.Total = CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes);
+            Session["Invoice"] = invoice;
+
+            // saved the result list to the session and return
+            Session["ProductInvoices"] = productInvoices;
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Orden()
         {
-            IServicesProduct servicesArticulos = new ServiceProduct();
-            ViewBag.Product = servicesArticulos.GetProductAll();
-            //List<ViewModelOrder> lista = new List<ViewModelOrden>();
-            //Session["Order"] = lista;
             return View();
+        }
+
+        public decimal CalculateSubtotal(List<ProductInvoice> productInvoices)
+        {
+            decimal? subtotal = 0;
+            foreach (var item in productInvoices)
+            {
+                subtotal += (item.Product.Price * item.Quantity);
+            }
+            return (decimal)subtotal;
+        }
+
+        public decimal CalculateTaxes(decimal subtotal)
+        {
+            return (decimal)0.13 * subtotal;
+        }
+
+        public decimal CalculateTotal(decimal subtotal, decimal taxes)
+        {
+            return subtotal + taxes;
         }
     }
 }

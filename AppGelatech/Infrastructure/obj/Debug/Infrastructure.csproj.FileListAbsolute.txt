@@ -22,3 +22,15 @@ C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Infrastructure\obj\Debug\
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.CopyComplete
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.dll
 C:\Users\Alana Arias\Source\Repos\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.pdb
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.dll.config
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\Infrastructure.pdb
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.csproj.CopyComplete
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.dll
+C:\Users\miran\Source\Repos\mirandavj14\Gelatech\AppGelatech\Infrastructure\obj\Debug\Infrastructure.pdb

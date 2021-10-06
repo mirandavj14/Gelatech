@@ -1,4 +1,5 @@
 ﻿using Core.Services;
+using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,7 @@ namespace Gelatech.Controllers
     {
         public ActionResult Index()
         {
-            IServicesProduct servicesProduct = new ServiceProduct();
-            ViewBag.Product = servicesProduct.GetProductAll();
-            return View();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

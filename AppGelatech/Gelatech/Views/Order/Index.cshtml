@@ -1,68 +1,88 @@
-﻿
+﻿@model Infrastructure.Models.ProductInvoice
+
 @{
     ViewBag.Title = "Index";
-    List<Infrastructure.Models.Product> product = new List<Infrastructure.Models.Product>();
-    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    List<Infrastructure.Models.Product> products = new List<Infrastructure.Models.Product>();
+    List<Infrastructure.Models.ProductInvoice> productInvoices = new List<Infrastructure.Models.ProductInvoice>();
+    Infrastructure.Models.Invoice invoice = new Infrastructure.Models.Invoice();
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CREAR ORDEN</h2>
-
-<div class="page-content-wrapper">
-    <div class="container-fluid">
-        <br>
-        <div class="row">
-            <h5 class="mt-5 mb-3">Columns</h5>
-            <div class="row col-md-12">
-                @foreach (var item in product)
-                {
-                    <div class="card col-md-4" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
-                       
-                        <div class="card-body"
-                             style="background-color: #d8d8d8; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
-                            <h4 class="card-title font-size-18 mt-0">@item.Name</h4>
-                            <h4 class="card-text">@item.Price</h4>
-                            <div style="text-align: right;">
-                                <a onclick="valida(@item.Id)" class="btn btn-dark"><i style="margin-right: 10px;" class="fas fa-plus"></i> Add</a>
-                            </div>
-                        </div>
-
-                    </div>
-                }
-            </div>
-        </div>
-        <!-- end row -->
-    </div> <!-- container-fluid -->
-</div>
-<!-- end page-content-wrapper -->
-<div class="widget-content">
-    <div class="table-responsive">
-        <table id="TablaArticulos" class="table table-striped">
-            <thead>
-                <tr class="text-black">
-                    <th><div class="th-content">Name</div></th>
-                    <th><div class="th-content">Price</div></th>
-                    <th><div class="th-content">Quantity</div></th>
-                    <th><div class="th-content">Delete</div></th>
-
-                </tr>
-
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<br />
-<br />
-<br />
-<br />
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @{
-        var modelData = 0;
-
+<style>
+    .form-control {
+        margin-top: 25px;
+        text-align: center;
+        position: center;
+        margin-left: 25%;
+        width: 50%;
     }
 
+    #addProductButton {
+        background-color: darkred;
+        color: white;
+        margin-left: 25%;
+        font-weight: 600;
+    }
 
+    .main-container {
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        justify-content: center;
+    }
+
+    .addedProducts-table {
+        margin-top: 50px;
+        margin-left: 25%;
+        width: 50%;
+    }
+
+    .invoice-details {
+        margin-top: 100px;
+        margin-left: 25%;
+        width: 50%;
+    }
+</style>
+
+@using (Html.BeginForm("AddProduct", "Order"))
+{
+    <div class="main-container">
+        <div class="addproduct-container">
+            <h1 class="text-center">Add products</h1>
+            <div class="mt-4">
+                <h3 class="text-center">Product</h3>
+                @Html.DropDownListFor(m => m.ProductId, new SelectList(ViewBag.products, "Id", "Name"), new { @class = "form-control" })
+            </div>
+            <div class="mt-4">
+                <h3 class="text-center">Quantity</h3>
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div>
+                <button id="addProductButton" type="submit" class="form-control">Add product</button>
+            </div>
+        </div>
+
+        <div class="addedProducts-table">
+            <h3 class="text-center">Added products</h3>
+            <table class="table mt-4">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+                @foreach (var item in ViewBag.productInvoices)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="invoice-details">
+            <h3>Subtotal: $ @ViewBag.invoice.SubTotal</h3>
+            <h3>Taxes: $ @ViewBag.invoice.Taxes</h3>
+            <h3>Total: $ @ViewBag.invoice.Total</h3>
+        </div>
+    </div>
 }
