@@ -70,8 +70,9 @@ namespace Gelatech.Controllers
             // calculate Invoice values and save to session
             Invoice invoice = new Invoice();
             invoice.SubTotal = CalculateSubtotal(productInvoices);
-            invoice.Taxes = CalculateTaxes((decimal)invoice.SubTotal);
-            invoice.Total = CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes);
+            invoice.Taxes = CalculateTaxes((decimal)invoice.SubTotal);           
+            invoice.Discount = CalculatePromotion(fullProduct, (decimal)invoice.SubTotal);
+            invoice.Total = CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes, (decimal)invoice.Discount);
             Session["Invoice"] = invoice;
 
             // saved the result list to the session and return
@@ -99,9 +100,26 @@ namespace Gelatech.Controllers
             return (decimal)0.13 * subtotal;
         }
 
-        public decimal CalculateTotal(decimal subtotal, decimal taxes)
+        public decimal CalculateTotal(decimal subtotal, decimal taxes, decimal discount)
         {
-            return subtotal + taxes;
+            return (subtotal + taxes) - discount;
         }
+
+        public decimal CalculatePromotion( Product product, decimal subtotal)
+        {
+            decimal promotion;
+            if(product.Id == 3 && subtotal >= 20)
+            {
+                promotion= subtotal - (decimal)product.Price;
+            }
+            else
+            {
+                promotion = (decimal)product.Price;
+            }
+            return promotion;
+           
+        }
+
+       
     }
 }
