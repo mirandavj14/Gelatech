@@ -65,6 +65,15 @@ GO
 INSERT INTO [User](Name,Username,Password,RoleId)
 VALUES('Alana Arias','alana.ar','123456',1);
 GO
+INSERT INTO [User] (Name,Username,Password,RoleId) 
+VALUES ('Veronica Chacon', 'vero.ch', '123456', 2)
+GO
+INSERT INTO [User] (Name,Username,Password,RoleId) 
+VALUES ('Fabian Picado', 'fabi.pi', '123456', 2)
+GO
+INSERT INTO [User] (Name,Username,Password,RoleId) 
+VALUES ('Fanny Ortega', 'fanny.or', '123456', 2)
+GO
 /*INSERTS FOR TABLE Product*/
 INSERT INTO [Product](Name,Description,Price)
 VALUES('Papas','caja de papas marca pringles',15.82)
