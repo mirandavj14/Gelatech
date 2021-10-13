@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Models;
-using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,24 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public class ServiceUsers : IServicesUser
+    public class ServiceUsers
     {
-        public User GetUser(User user)
+        public User GetUser(User pUser)
         {
-            IUserRepository repository = new UserRepository();
-            return repository.GetUser(user);
+            User user = null;
+            try
+            {
+                using (GelatechDBEntities context = new GelatechDBEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    user = context.User.Where(u => u.Username == pUser.Username && u.Password == pUser.Password).FirstOrDefault();
+                }
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

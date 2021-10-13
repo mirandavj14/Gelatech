@@ -16,15 +16,21 @@ namespace Gelatech.Controllers
             var invoice = Session["Invoice"];
             var x = productInvoicesInSession == null ? ViewBag.productInvoices = new List<ProductInvoice>() : ViewBag.productInvoices = (List<ProductInvoice>)Session["ProductInvoices"];
             var y = invoice == null ? ViewBag.invoice = new Invoice() : ViewBag.invoice = (Invoice)Session["Invoice"];
-            IServicesProduct servicesProduct = new ServiceProduct();
+            ServiceProduct servicesProduct = new ServiceProduct();
             ViewBag.products = servicesProduct.GetProductAll();
             return View();
+        }
+
+        public ActionResult AddDiscount(int discount)
+        {
+            Session["Discount"] = discount;
+            return RedirectToAction("Index");
         }
 
         public ActionResult AddProduct(ProductInvoice productInvoice)
         {
             // Get the full product object using the id in productInvoice
-            IServicesProduct servicesProduct = new ServiceProduct();
+            ServiceProduct servicesProduct = new ServiceProduct();
             Product fullProduct = servicesProduct.GetProductByID(productInvoice.ProductId);
             productInvoice.Product = fullProduct;
 
@@ -67,11 +73,14 @@ namespace Gelatech.Controllers
                 productInvoices.Add(productInvoice);
             }
 
+            // Get applied discount from session
+            int discount = (int)Session["Discount"];
+
             // calculate Invoice values and save to session
             Invoice invoice = new Invoice();
             invoice.SubTotal = CalculateSubtotal(productInvoices);
             invoice.Taxes = CalculateTaxes((decimal)invoice.SubTotal);           
-            invoice.Discount = CalculatePromotion(fullProduct, (decimal)invoice.SubTotal);
+            invoice.Discount = CalculateDiscount((decimal)invoice.SubTotal, discount);
             invoice.Total = CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes, (decimal)invoice.Discount);
             Session["Invoice"] = invoice;
 
@@ -105,21 +114,10 @@ namespace Gelatech.Controllers
             return (subtotal + taxes) - discount;
         }
 
-        public decimal CalculatePromotion( Product product, decimal subtotal)
+        public decimal CalculateDiscount(decimal subtotal, int pDiscount)
         {
-            decimal promotion;
-            if(product.Id == 3 && subtotal >= 20)
-            {
-                promotion= subtotal - (decimal)product.Price;
-            }
-            else
-            {
-                promotion = (decimal)product.Price;
-            }
-            return promotion;
-           
+            decimal discountPercentage = pDiscount / 100;
+            return subtotal * discountPercentage;
         }
-
-       
     }
 }

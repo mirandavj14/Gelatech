@@ -20,7 +20,7 @@ namespace Gelatech.Controllers
             try
             {
                 User user = null;
-                IServicesUser servicesUsers = new ServiceUsers();
+                ServiceUsers servicesUsers = new ServiceUsers();
                 user = servicesUsers.GetUser(pUser);
                 if (user != null)
                 {
