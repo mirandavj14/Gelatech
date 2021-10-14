@@ -21,8 +21,11 @@ namespace Core.Services
 
                     foreach (var item in productInvoices)
                     {
-                        item.InvoiceId = invoice.Id;
-                        context.ProductInvoice.Add(item);
+                        ProductInvoice productInvoice = new ProductInvoice();
+                        productInvoice.ProductId = item.ProductId;
+                        productInvoice.Quantity = item.Quantity;
+                        productInvoice.InvoiceId = invoice.Id;
+                        context.ProductInvoice.Add(productInvoice);
                     }
                     retorno = context.SaveChanges();
                 }
