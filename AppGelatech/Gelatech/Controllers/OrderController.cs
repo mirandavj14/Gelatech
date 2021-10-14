@@ -114,7 +114,12 @@ namespace Gelatech.Controllers
             List<ProductInvoice> productInvoices = (List<ProductInvoice>)Session["ProductInvoices"];
             ServiceInvoice serviceInvoice = new ServiceInvoice();
             serviceInvoice.SaveInvoice(invoice, productInvoices);
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("SuccessfulInvoice");
+        }
+
+        public ActionResult SuccessfulInvoice()
+        {
+            return View();
         }
     }
 }
