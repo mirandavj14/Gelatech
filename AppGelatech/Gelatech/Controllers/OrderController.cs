@@ -105,9 +105,16 @@ namespace Gelatech.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Orden()
+        [System.Web.Http.HttpPost]
+        public ActionResult SaveInvoice(string payment)
         {
-            return View();
+            Invoice invoice = (Invoice)Session["Invoice"];
+            invoice.Payment = payment;
+            invoice.Date = DateTime.Now;
+            List<ProductInvoice> productInvoices = (List<ProductInvoice>)Session["ProductInvoices"];
+            ServiceInvoice serviceInvoice = new ServiceInvoice();
+            serviceInvoice.SaveInvoice(invoice, productInvoices);
+            return RedirectToAction("Index","Login");
         }
     }
 }

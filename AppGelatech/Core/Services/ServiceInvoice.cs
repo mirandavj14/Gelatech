@@ -9,6 +9,49 @@ namespace Core.Services
 {
     public class ServiceInvoice
     {
+        public void SaveInvoice(Invoice invoice, List<ProductInvoice> productInvoices)
+        {
+            int retorno = 0;
+            try
+            {
+                using (GelatechDBEntities context = new GelatechDBEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    context.Invoice.Add(invoice);
+
+                    foreach (var item in productInvoices)
+                    {
+                        item.InvoiceId = invoice.Id;
+                        context.ProductInvoice.Add(item);
+                    }
+                    retorno = context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public Invoice GetInvoice(int id)
+        {
+            Invoice invoice = null;
+            try
+            {
+                using (GelatechDBEntities context = new GelatechDBEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    invoice = context.Invoice.Find(id);
+                }
+
+                return invoice;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public decimal CalculateSubtotal(List<ProductInvoice> productInvoices)
         {
             decimal? subtotal = 0;
@@ -31,7 +74,7 @@ namespace Core.Services
 
         public decimal CalculateDiscount(decimal subtotal, int pDiscount)
         {
-            decimal discountPercentage = pDiscount / 100;
+            decimal discountPercentage = (decimal)pDiscount / 100;
             return subtotal * discountPercentage;
         }
     }

@@ -63,6 +63,10 @@
         padding: 3px;
         font-weight: 600;
     }
+
+    .payments-container {
+        margin-top: 50px;
+    }
 </style>
 
 @using (Html.BeginForm("AddProduct", "Order"))
@@ -109,6 +113,14 @@
             </div>
         }
 
+        <div class="payments-container">
+            <h2 class="text-center">Payment type</h2>
+            <select name="payments" class="form-control" id="payments">
+                <option value="Cash">Cash</option>
+                <option value="Credit Card">Credit Card</option>
+            </select>
+        </div>
+
         <div class="invoice-details">
             <h3>Subtotal: $ @ViewBag.invoice.SubTotal</h3>
             <h3>Taxes: $ @ViewBag.invoice.Taxes</h3>
@@ -116,7 +128,7 @@
             <h3>Total: $ @ViewBag.invoice.Total</h3>
         </div>
         <div>
-            <button id="addInvoiceButton" type="submit" class="form-control">Add Invoice</button>
+            <button id="addInvoiceButton" onclick="saveInvoice()" class="form-control">Add Invoice</button>
         </div>
     </div>
 }
@@ -128,6 +140,18 @@
         $.ajax({
             url: url,
             data: { discount: discount },
+            success: function (data) {
+
+            }
+        });
+    }
+
+    function saveInvoice() {
+        var payment = document.getElementById("payments").value;
+        var url = '@Url.Action("SaveInvoice", "Order")';
+        $.ajax({
+            url: url,
+            data: { payment: payment },
             success: function (data) {
 
             }
