@@ -1,9 +1,11 @@
 ﻿using Core.Services;
 using Infrastructure.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace Gelatech.Controllers
@@ -21,9 +23,13 @@ namespace Gelatech.Controllers
             return View();
         }
 
+        [System.Web.Http.HttpPost]
         public ActionResult AddDiscount(int discount)
         {
-            Session["Discount"] = discount;
+            ServiceInvoice serviceInvoice = new ServiceInvoice();
+            Invoice invoice = (Invoice)Session["Invoice"];
+            invoice.Discount = serviceInvoice.CalculateDiscount((decimal)invoice.SubTotal, discount);
+            Session["Invoice"] = invoice;
             return RedirectToAction("Index");
         }
 
@@ -73,18 +79,28 @@ namespace Gelatech.Controllers
                 productInvoices.Add(productInvoice);
             }
 
-            // Get applied discount from session
-            int discount = (int)Session["Discount"];
+            // Invoice Service instance to perform operations
+            ServiceInvoice serviceInvoice = new ServiceInvoice();
 
-            // calculate Invoice values and save to session
             Invoice invoice = new Invoice();
-            invoice.SubTotal = CalculateSubtotal(productInvoices);
-            invoice.Taxes = CalculateTaxes((decimal)invoice.SubTotal);           
-            invoice.Discount = CalculateDiscount((decimal)invoice.SubTotal, discount);
-            invoice.Total = CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes, (decimal)invoice.Discount);
-            Session["Invoice"] = invoice;
+            invoice.SubTotal = serviceInvoice.CalculateSubtotal(productInvoices);
+            invoice.Taxes = serviceInvoice.CalculateTaxes((decimal)invoice.SubTotal);
 
-            // saved the result list to the session and return
+            // Check if the invoice is already created
+            var invoiceInSession = Session["Invoice"];
+                
+            if (invoiceInSession != null)
+            {
+                var auxInvoice = (Invoice)Session["Invoice"];
+                invoice.Discount = auxInvoice.Discount;
+                invoice.Total = serviceInvoice.CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes, (decimal)invoice.Discount);
+            }
+            else
+            {
+                invoice.Discount = 0;
+                invoice.Total = serviceInvoice.CalculateTotal((decimal)invoice.SubTotal, (decimal)invoice.Taxes, (decimal)invoice.Discount);
+            }
+            Session["Invoice"] = invoice;
             Session["ProductInvoices"] = productInvoices;
             return RedirectToAction("Index");
         }
@@ -92,32 +108,6 @@ namespace Gelatech.Controllers
         public ActionResult Orden()
         {
             return View();
-        }
-
-        public decimal CalculateSubtotal(List<ProductInvoice> productInvoices)
-        {
-            decimal? subtotal = 0;
-            foreach (var item in productInvoices)
-            {
-                subtotal += (item.Product.Price * item.Quantity);
-            }
-            return (decimal)subtotal;
-        }
-
-        public decimal CalculateTaxes(decimal subtotal)
-        {
-            return (decimal)0.13 * subtotal;
-        }
-
-        public decimal CalculateTotal(decimal subtotal, decimal taxes, decimal discount)
-        {
-            return (subtotal + taxes) - discount;
-        }
-
-        public decimal CalculateDiscount(decimal subtotal, int pDiscount)
-        {
-            decimal discountPercentage = pDiscount / 100;
-            return subtotal * discountPercentage;
         }
     }
 }

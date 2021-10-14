@@ -45,55 +45,92 @@
     }
 
     .invoice-details {
-        margin-top: 100px;
+        margin-top: 40px;
         margin-left: 25%;
         width: 50%;
+    }
+
+    .discount-container {
+        margin-top: 30px;
+        margin-left: 25%;
+        width: 50%;
+    }
+
+    .discount-button {
+        background-color: darkred;
+        color: white;
+        border: none !important;
+        padding: 3px;
+        font-weight: 600;
     }
 </style>
 
 @using (Html.BeginForm("AddProduct", "Order"))
 {
-<div class="main-container">
-    <div class="addproduct-container">
-        <h1 class="text-center">Add products</h1>
-        <div class="mt-4">
-            <h3 class="text-center">Product</h3>
-            @Html.DropDownListFor(m => m.ProductId, new SelectList(ViewBag.products, "Id", "Name"), new { @class = "form-control" })
+    <div class="main-container">
+        <div class="addproduct-container">
+            <h1 class="text-center">Add products</h1>
+            <div class="mt-4">
+                <h3 class="text-center">Product</h3>
+                @Html.DropDownListFor(m => m.ProductId, new SelectList(ViewBag.products, "Id", "Name"), new { @class = "form-control" })
+            </div>
+            <div class="mt-4">
+                <h3 class="text-center">Quantity</h3>
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div>
+                <button id="addProductButton" type="submit" class="form-control">Add product</button>
+            </div>
         </div>
-        <div class="mt-4">
-            <h3 class="text-center">Quantity</h3>
-            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+
+        <div class="addedProducts-table">
+            <h3 class="text-center">Added products</h3>
+            <table class="table mt-4">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+                @foreach (var item in ViewBag.productInvoices)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        @if (ViewBag.productInvoices.Count >= 3 && ViewBag.invoice.Total > 17.0M)
+        {
+            <div class="discount-container">
+                <h2>Discount %</h2>
+                <input type="number" id="discount" name="discount" min="0" max="10">
+                <button class="discount-button" onclick="applyDiscount()">Apply</button>
+            </div>
+        }
+
+        <div class="invoice-details">
+            <h3>Subtotal: $ @ViewBag.invoice.SubTotal</h3>
+            <h3>Taxes: $ @ViewBag.invoice.Taxes</h3>
+            <h3>Discount: $ @ViewBag.invoice.Discount</h3>
+            <h3>Total: $ @ViewBag.invoice.Total</h3>
         </div>
         <div>
-            <button id="addProductButton" type="submit" class="form-control">Add product</button>
+            <button id="addInvoiceButton" type="submit" class="form-control">Add Invoice</button>
         </div>
     </div>
-
-    <div class="addedProducts-table">
-        <h3 class="text-center">Added products</h3>
-        <table class="table mt-4">
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-            </tr>
-            @foreach (var item in ViewBag.productInvoices)
-            {
-                <tr>
-                    <td>@item.Product.Name</td>
-                    <td>@item.Quantity</td>
-                </tr>
-            }
-        </table>
-    </div>
-
-    <div class="invoice-details">
-        <h3>Subtotal: $ @ViewBag.invoice.SubTotal</h3>
-        <h3>Taxes: $ @ViewBag.invoice.Taxes</h3>
-        <h3>Discount: $ @ViewBag.invoice.Discount</h3>
-        <h3>Total: $ @ViewBag.invoice.Total</h3>
-    </div>
-    <div>
-        <button id="addInvoiceButton" type="submit" class="form-control">Add Invoice</button>
-    </div>
-</div>
 }
+
+<script>
+    function applyDiscount() {
+        var discount = document.getElementById("discount").value;
+        var url = '@Url.Action("AddDiscount", "Order")';
+        $.ajax({
+            url: url,
+            data: { discount: discount },
+            success: function (data) {
+
+            }
+        });
+    }
+</script>
